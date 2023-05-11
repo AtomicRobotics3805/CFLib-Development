@@ -1,5 +1,3 @@
-# CFLib
-CFLib is a free, open source, and easy-to-use library that is designed for FTC (First Tech Challenge). 
+## NOTICE
 
-If you'd like to find out more about CFLib, or need help with a challenge you're facing, check out our [documentation website](https://docs.atomicrobotics3805.org)
-or join our [discord server](https://discord.gg/PjP9Ze6fkX).
+This repository contains the competition code for the 2022/2023 FTC (First Tech Challenge) season, Power Play.

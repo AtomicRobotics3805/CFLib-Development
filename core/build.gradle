@@ -4,10 +4,18 @@ plugins {
     id 'maven-publish'
 }
 
-apply from: '../build.common.gradle'
+project.gradle.startParameter.excludedTaskNames.add('installDebugAndroidTest')
 
 android {
     namespace = 'org.atomicrobotics3805.cflib.core'
+    compileSdkVersion 32
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
 }
 
 dependencies {
@@ -15,23 +23,22 @@ dependencies {
     implementation 'org.apache.commons:commons-math3:3.6.1'
     implementation 'com.acmerobotics.roadrunner:core:0.5.5'
     implementation 'com.github.NoahBres:MeepMeep:2.0.2'
+
+    compileOnly 'org.firstinspires.ftc:RobotCore:8.0.0'
+    compileOnly 'org.firstinspires.ftc:Hardware:8.0.0'
+    compileOnly 'org.firstinspires.ftc:FtcCommon:8.0.0'
+    compileOnly 'org.firstinspires.ftc:RobotServer:8.0.0'
+    compileOnly 'org.firstinspires.ftc:OnBotJava:8.0.0'
+    implementation 'org.tensorflow:tensorflow-lite-task-vision:0.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    compileOnly 'org.firstinspires.ftc:gameAssets-PowerPlay:1.0.0'
+
+    implementation('com.acmerobotics.dashboard:dashboard:0.4.6') {
+        exclude group: 'org.firstinspires.ftc'
+    }
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-
-                groupId = 'org.atomicrobotics3805'
-                artifactId = 'cflib'
-                version = '0.0.1'
-            }
-        }
-    }
 }
