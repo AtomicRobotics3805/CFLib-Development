@@ -189,13 +189,13 @@ object TestingMecanumDriveConstants : MecanumDriveConstants {
     override val RIGHT_DRIFT_MULTIPLIER: Double
         get() = _RIGHT_DRIFT_MODIFIER
     override val LEFT_FRONT_MOTOR: MotorEx
-        get() = TODO("Not yet implemented")
+        get() = _LEFT_FRONT_MOTOR
     override val RIGHT_FRONT_MOTOR: MotorEx
-        get() = TODO("Not yet implemented")
+        get() = _RIGHT_FRONT_MOTOR
     override val LEFT_BACK_MOTOR: MotorEx
-        get() = TODO("Not yet implemented")
+        get() = _LEFT_BACK_MOTOR
     override val RIGHT_BACK_MOTOR: MotorEx
-        get() = TODO("Not yet implemented")
+        get() = _RIGHT_BACK_MOTOR
     override val POV: DriverControlled.POV
         get() = _POV
     override val REVERSE_STRAFE: Boolean
