@@ -35,7 +35,6 @@ fun main() {
         18.0,
         { sequential {
             +drive.followTrajectory(TestingTrajectoryFactory.myTrajectory)
-            +TestingLift.command
             +drive.followTrajectory(TestingTrajectoryFactory.myTrajectory2)
         } },
         Constants.Color.BLUE

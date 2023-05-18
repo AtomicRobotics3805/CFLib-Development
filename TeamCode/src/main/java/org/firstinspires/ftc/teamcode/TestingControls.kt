@@ -33,6 +33,7 @@ object TestingControls : Controls() {
      * Registers commands on the gamepads.
      */
     override fun registerCommands() {
-
+        gamepad1.a.pressedCommand = { TestingClaw.moveServo }
+        gamepad1.b.pressedCommand = { TestingLift.spinWheel }
     }
 }

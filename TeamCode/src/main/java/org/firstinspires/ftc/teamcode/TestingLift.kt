@@ -36,7 +36,11 @@ import org.atomicrobotics3805.cflib.subsystems.Subsystem
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object TestingLift : Subsystem {
 
-    val myMotor = MotorEx("lift", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 1.0, DcMotorSimple.Direction.FORWARD)
-    val command: Command
-        get() = PowerMotor(myMotor, 1.0)
+    private val shooterWheel1 = MotorEx("ShooterWheels", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 1.0, DcMotorSimple.Direction.FORWARD)
+    val spinWheel: Command
+        get() = PowerMotor(shooterWheel1, 1.0)
+
+    override fun initialize() {
+        shooterWheel1.initialize()
+    }
 }

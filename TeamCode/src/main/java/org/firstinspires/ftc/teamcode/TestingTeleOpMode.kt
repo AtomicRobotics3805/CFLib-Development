@@ -36,5 +36,5 @@ class TestingTeleOpMode : TeleOpMode(
         TestingMecanumDriveConstants,
         TwoWheelOdometryLocalizer(TestingOdometryConstants)
     ),
-    subsystems = arrayOf(TestingClaw)
+    subsystems = arrayOf(TestingClaw, TestingLift)
 )

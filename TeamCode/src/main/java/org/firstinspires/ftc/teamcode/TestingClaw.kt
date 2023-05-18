@@ -17,6 +17,9 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.hardware.ServoEx
+import org.atomicrobotics3805.cflib.subsystems.MoveServo
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 
 /**
@@ -30,5 +33,15 @@ import org.atomicrobotics3805.cflib.subsystems.Subsystem
 @Suppress("PropertyName", "MemberVisibilityCanBePrivate", "unused")
 object TestingClaw : Subsystem {
 
+    @JvmField
+    var NAME = "lift"
 
+    val moveServo: Command
+        get() = MoveServo(clawServo, 0.5, clawServo.speed)
+
+    private val clawServo = ServoEx(NAME)
+
+    override fun initialize() {
+        clawServo.initialize()
+    }
 }
