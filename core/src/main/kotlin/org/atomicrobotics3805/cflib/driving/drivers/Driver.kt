@@ -91,7 +91,7 @@ abstract class Driver(
 
     protected lateinit var hardwareMap: HardwareMap
     // I wonder what this does
-    protected lateinit var batteryVoltageSensor: VoltageSensor
+    lateinit var batteryVoltageSensor: VoltageSensor
     // the IMU has a variety of purposes, but we use it to figure out the robot's heading (angle)
     protected lateinit var imu: BNO055IMU
 
