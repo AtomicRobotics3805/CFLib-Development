@@ -17,6 +17,11 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.hardware.DcMotor
+import com.qualcomm.robotcore.hardware.DcMotorSimple
+import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.hardware.MotorEx
+import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 
 /**
@@ -31,5 +36,7 @@ import org.atomicrobotics3805.cflib.subsystems.Subsystem
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object TestingLift : Subsystem {
 
-
+    val myMotor = MotorEx("lift", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 1.0, DcMotorSimple.Direction.FORWARD)
+    val command: Command
+        get() = PowerMotor(myMotor, 1.0)
 }

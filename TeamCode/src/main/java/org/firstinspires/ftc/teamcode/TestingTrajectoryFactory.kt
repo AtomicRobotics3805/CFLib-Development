@@ -16,6 +16,9 @@
 */
 package org.firstinspires.ftc.teamcode
 
+import com.acmerobotics.roadrunner.geometry.Pose2d
+import org.atomicrobotics3805.cflib.Constants.drive
+import org.atomicrobotics3805.cflib.trajectories.ParallelTrajectory
 import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
 
 /**
@@ -26,6 +29,9 @@ import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
  */
 object TestingTrajectoryFactory : TrajectoryFactory() {
 
+    lateinit var myTrajectory: ParallelTrajectory
+    lateinit var myTrajectory2: ParallelTrajectory
+
     /**
      * Initializes the robot's start positions and trajectories. This is where the trajectories are
      * actually created.
@@ -35,6 +41,11 @@ object TestingTrajectoryFactory : TrajectoryFactory() {
         // start positions
 
         // trajectories
-
+        myTrajectory = drive.trajectoryBuilder(Pose2d(0.0, 0.0))
+            .forward(20.0)
+            .build()
+        myTrajectory2 = drive.trajectoryBuilder(myTrajectory.end())
+            .forward(20.0)
+            .build()
     }
 }
