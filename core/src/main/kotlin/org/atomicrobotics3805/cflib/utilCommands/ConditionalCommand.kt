@@ -2,6 +2,7 @@ package org.atomicrobotics3805.cflib.utilCommands
 
 import org.atomicrobotics3805.cflib.Command
 
+@Deprecated("ConditionalCommand has been replaced with OptionCommand and will be removed in the next major release.")
 class ConditionalCommand(
     private val condition: () -> Boolean,
     private val trueOperation: () -> Unit,
