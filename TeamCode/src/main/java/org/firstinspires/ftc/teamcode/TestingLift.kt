@@ -39,6 +39,8 @@ object TestingLift : Subsystem {
     private val shooterWheel1 = MotorEx("ShooterWheels", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 1.0, DcMotorSimple.Direction.FORWARD)
     val spinWheel: Command
         get() = PowerMotor(shooterWheel1, 1.0)
+    val stopWheel: Command
+        get() = PowerMotor(shooterWheel1, 0.0)
 
     override fun initialize() {
         shooterWheel1.initialize()

@@ -2,7 +2,10 @@ package org.atomicrobotics3805.cflib.utilCommands
 
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.Constants.opMode
+import org.atomicrobotics3805.cflib.TelemetryController
 import kotlin.math.abs
 
 class VoltageSpikeDelay(
@@ -40,9 +43,15 @@ class VoltageSpikeDelay(
                 break
             }
         }
-        if (closestVoltage < jamMaxVoltage && closestVoltage - voltage > jamRate) {
+        if (voltage < jamMaxVoltage && closestVoltage - voltage > jamRate) {
             jammed = true
         }
         voltages.add(Pair(voltage, currentTime))
+    }
+
+    override fun end(interrupted: Boolean) {
+        if (!interrupted) {
+            CommandScheduler.scheduleCommand(TelemetryCommand(10000.0, "Motor Stalled!"))
+        }
     }
 }

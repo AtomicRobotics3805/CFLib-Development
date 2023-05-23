@@ -16,11 +16,23 @@
 */
 package org.firstinspires.ftc.teamcode
 
+import org.atomicrobotics3805.cflib.CommandGroup
+import org.atomicrobotics3805.cflib.TelemetryController
+import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.sequential
+import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
+import org.atomicrobotics3805.cflib.utilCommands.VoltageSpikeDelay
+
 /**
  * This class is an example of how to create routines. Routines are essentially just groups of
  * commands that can be run either one at a time (sequentially) or all at once (in parallel).
  */
 object TestingRoutines {
 
-
+    val voltageSpikeTest: CommandGroup
+        get() = sequential {
+            +TestingLift.spinWheel
+            +VoltageSpikeDelay()
+            +TestingLift.stopWheel
+        }
 }

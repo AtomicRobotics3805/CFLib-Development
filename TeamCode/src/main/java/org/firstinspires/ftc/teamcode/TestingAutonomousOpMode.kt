@@ -29,15 +29,15 @@ import org.atomicrobotics3805.cflib.sequential
  * This class is an example of how you can create an Autonomous OpMode. Everything is handled by
  * the AutonomousOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
-@Disabled
 @Autonomous(name = "Testing Autonomous OpMode")
 class TestingAutonomousOpMode : AutonomousOpMode(
     Constants.Color.BLUE,
     TestingTrajectoryFactory,
-    { sequential { } },
+    { TestingRoutines.voltageSpikeTest },
     null,
     MecanumDrive(
         TestingMecanumDriveConstants,
         TwoWheelOdometryLocalizer(TestingOdometryConstants)
-    ) { Pose2d() }
+    ) { Pose2d() },
+    TestingLift, TestingClaw
 )

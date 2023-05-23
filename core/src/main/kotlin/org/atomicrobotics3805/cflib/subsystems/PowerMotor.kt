@@ -40,6 +40,8 @@ class PowerMotor(
     private val logData: Boolean = false
 ) : Command() {
 
+    override val _isDone = true
+
     override fun start() {
         if (mode != null) {
             motor.mode = mode
