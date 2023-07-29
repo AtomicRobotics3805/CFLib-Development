@@ -47,6 +47,7 @@ abstract class AutonomousOpMode(private val color: Constants.Color,
                                 private val mainRoutine: (() -> Command),
                                 private val initRoutine: (() -> Command)? = null,
                                 private val drive: Driver,
+                                private val developmentFlags: List<String>? = null,
                                 private vararg val subsystems: Subsystem
 ) : LinearOpMode() {
 

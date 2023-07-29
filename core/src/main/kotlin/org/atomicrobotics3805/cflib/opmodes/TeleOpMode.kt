@@ -51,6 +51,7 @@ abstract class TeleOpMode(private val controls: Controls,
                           private val mainRoutine: (() -> Command)? = null,
                           private val initRoutine: (() -> Command)? = null,
                           private val drive: Driver,
+                          private val developmentFlags: List<String>? = null,
                           private vararg val subsystems: Subsystem
 ) : LinearOpMode() {
 
