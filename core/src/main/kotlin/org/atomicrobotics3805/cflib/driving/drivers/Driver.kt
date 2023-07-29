@@ -42,8 +42,12 @@ import org.atomicrobotics3805.cflib.roadrunner.LynxModuleUtil
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.trajectories.ParallelTrajectory
 import org.atomicrobotics3805.cflib.trajectories.ParallelTrajectoryBuilder
+import org.atomicrobotics3805.cflib.trajectories.toRadians
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder
 import java.util.*
+import kotlin.math.absoluteValue
 
 /**
  * This interface contains a follower and a trajectory being followed. It's used by commands like
@@ -94,6 +98,8 @@ abstract class Driver(
     protected lateinit var batteryVoltageSensor: VoltageSensor
     // the IMU has a variety of purposes, but we use it to figure out the robot's heading (angle)
     protected lateinit var imu: BNO055IMU
+
+    val maximumAngle = 45.0.toRadians
 
     /**
      * Sets the robot's drive power as a Pose2d, which has x, y, and heading components.
@@ -176,6 +182,16 @@ abstract class Driver(
         }
         CommandScheduler.registerSubsystems(localizer)
         localizer.poseEstimate = startPose.invoke()
+    }
+
+    // Returns true if the robot is tipped beyond 45 degrees
+    fun detectTippedRobot(): Boolean {
+        if (AngleUnit.normalizeRadians(imu.angularOrientation.toAxesOrder(AxesOrder.XYZ).firstAngle).absoluteValue >= maximumAngle ||
+            AngleUnit.normalizeRadians(imu.angularOrientation.toAxesOrder(AxesOrder.XYZ).secondAngle).absoluteValue >= maximumAngle)
+        {
+            return true
+        }
+        return false
     }
 
     /**

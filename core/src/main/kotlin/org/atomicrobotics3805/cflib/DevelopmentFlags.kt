@@ -1,3 +1,5 @@
 package org.atomicrobotics3805.cflib
 
-data class DevelopmentFlags()
+object DevelopmentFlags {
+    val useTipDetection = "USE_TIP_DETECTION"
+}

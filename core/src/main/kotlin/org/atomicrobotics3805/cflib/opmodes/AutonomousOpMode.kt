@@ -17,10 +17,7 @@
 package org.atomicrobotics3805.cflib.opmodes
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import org.atomicrobotics3805.cflib.Command
-import org.atomicrobotics3805.cflib.CommandScheduler
-import org.atomicrobotics3805.cflib.Constants
-import org.atomicrobotics3805.cflib.TelemetryController
+import org.atomicrobotics3805.cflib.*
 import org.atomicrobotics3805.cflib.driving.drivers.Driver
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
@@ -80,6 +77,13 @@ abstract class AutonomousOpMode(private val color: Constants.Color,
             // wait for stop
             while (opModeIsActive()) {
                 CommandScheduler.run()
+
+                // Tip detection
+                if (developmentFlags?.contains(DevelopmentFlags.useTipDetection) == true) {
+                    if (drive.detectTippedRobot()) {
+                        requestOpModeStop()
+                    }
+                }
             }
         } catch (e: Exception) {
             telemetry.addLine("Error Occurred!")
