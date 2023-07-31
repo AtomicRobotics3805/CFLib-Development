@@ -16,6 +16,8 @@
 */
 package org.atomicrobotics3805.cflib.subsystems
 
+import com.acmerobotics.roadrunner.control.PIDCoefficients
+import com.acmerobotics.roadrunner.control.PIDFController
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.util.ElapsedTime
 import com.qualcomm.robotcore.util.Range
@@ -50,19 +52,20 @@ open class MotorToPosition(
     override val requirements: List<Subsystem> = arrayListOf(),
     override val interruptible: Boolean = true,
     protected val minError: Int = 15,
-    protected val kP: Double = 0.005,
-    protected val logData: Boolean = false
+    protected val coefficients: PIDCoefficients = PIDCoefficients(0.005, 0.0, 0.0),
+    protected val finish: Boolean = true
 ) : Command() {
 
     protected val timer = ElapsedTime()
+    protected var lastTime: Double = 0.0
     protected val positions: MutableList<Int> = mutableListOf()
-    protected val savesPerSecond = 10.0
+    protected val savesPerSecond = 3.0
     protected var saveTimes: MutableList<Double> = mutableListOf()
     protected val minimumChangeForStall = 20.0
-    protected var error: Int = 0
+    protected var controller = PIDFController(coefficients)
     protected var direction: Double = 0.0
     override val _isDone: Boolean
-        get() = abs(error) < minError
+        get() = abs(targetPosition - motor.currentPosition) < minError && finish
 
 
 
@@ -72,23 +75,17 @@ open class MotorToPosition(
      */
     override fun start() {
         motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
-        error = targetPosition - motor.currentPosition
-        direction = sign(error.toDouble())
+        controller.targetPosition = targetPosition.toDouble()
     }
 
     /**
      * Updates the error and direction, then calculates and sets the motor power
      */
     override fun execute() {
-        error = targetPosition - motor.currentPosition
-        direction = sign(error.toDouble())
-        val power = kP * abs(error) * speed * direction
+        val power = controller.update(motor.currentPosition.toDouble()) * speed
         motor.power = Range.clip(power, -min(speed, 1.0), min(speed, 1.0))
-        cancelIfStalled()
-        if(logData) {
-            val data = "Power: " + Range.clip(power, -min(speed, 1.0), min(speed, 1.0)) + ", direction: " + direction + ", error: " + error
-            RobotLog.i("MotorToPosition %s", data)
-        }
+        lastTime = timer.seconds()
+        //cancelIfStalled()
     }
 
     /**
@@ -114,7 +111,7 @@ open class MotorToPosition(
                 val currentSpeed = abs(positions[positions.size - 1] - motor.currentPosition)
                 if (currentSpeed == 0 || lastSpeed / currentSpeed >= minimumChangeForStall) {
                     CommandScheduler.scheduleCommand(
-                        TelemetryCommand(3.0, "Motor " + motor.name + " Stalled!")
+                        TelemetryCommand(3.0, "Motor " + motor.name.invoke() + " Stalled!")
                     )
                     isDone = true
                 }

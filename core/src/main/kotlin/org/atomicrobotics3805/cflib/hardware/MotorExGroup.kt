@@ -28,6 +28,8 @@ class MotorExGroup(
                 it.velocity = value
             }
         }
+    override val motor: DcMotorEx
+        get() = motors[0].motor
     override fun getVelocity(unit: AngleUnit) = motors[0].getVelocity(unit)
     @Deprecated("Replace with setPIDFCoefficients",
         replaceWith = ReplaceWith("setPIDFCoefficients"))
