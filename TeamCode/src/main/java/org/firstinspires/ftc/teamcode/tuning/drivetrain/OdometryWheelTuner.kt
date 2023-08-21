@@ -23,7 +23,7 @@ import kotlin.math.PI
 class OdometryWheelTuner : AutonomousOpMode(
     Constants.Color.UNKNOWN,
     EmptyTrajectoryFactory,
-    { sequential { } },
+    { TuneWheels() },
     null,
     MecanumDrive(
         TuningMecanumDriveConstants,
