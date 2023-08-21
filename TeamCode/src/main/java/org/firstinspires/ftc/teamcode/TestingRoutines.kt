@@ -31,8 +31,6 @@ object TestingRoutines {
 
     val voltageSpikeTest: CommandGroup
         get() = sequential {
-            +TestingLift.spinWheel
             +VoltageSpikeDelay()
-            +TestingLift.stopWheel
         }
 }

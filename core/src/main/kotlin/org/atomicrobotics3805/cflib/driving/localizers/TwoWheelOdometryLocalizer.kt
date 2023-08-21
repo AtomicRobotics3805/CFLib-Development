@@ -104,13 +104,13 @@ class TwoWheelOdometryLocalizer(val constants: TwoWheelOdometryConstants) : TwoT
         //  compensation method
         return if (constants.CORRECTED_VELOCITY) {
             listOf(
-                encoderTicksToInches(perpendicularEncoder.correctedVelocity) * constants.Y_MULTIPLIER,
-                if(encoderTicksToInches(parallelEncoder.correctedVelocity) * constants.X_MULTIPLIER < 0) encoderTicksToInches(parallelEncoder.correctedVelocity) * constants.X_MULTIPLIER * (drive.constants as MecanumDriveConstants).BACKWARD_DRIFT_MULTIPLIER else encoderTicksToInches(parallelEncoder.correctedVelocity) * constants.X_MULTIPLIER
+                if(encoderTicksToInches(parallelEncoder.correctedVelocity) * constants.X_MULTIPLIER < 0) encoderTicksToInches(parallelEncoder.correctedVelocity) * constants.X_MULTIPLIER * (drive.constants as MecanumDriveConstants).BACKWARD_DRIFT_MULTIPLIER else encoderTicksToInches(parallelEncoder.correctedVelocity) * constants.X_MULTIPLIER,
+                encoderTicksToInches(perpendicularEncoder.correctedVelocity) * constants.Y_MULTIPLIER
             )
         } else {
             listOf(
-                encoderTicksToInches(perpendicularEncoder.rawVelocity) * constants.Y_MULTIPLIER,
-                if(encoderTicksToInches(parallelEncoder.rawVelocity) * constants.X_MULTIPLIER < 0) encoderTicksToInches(parallelEncoder.rawVelocity) * constants.X_MULTIPLIER * (drive.constants as MecanumDriveConstants).BACKWARD_DRIFT_MULTIPLIER else encoderTicksToInches(parallelEncoder.rawVelocity) * constants.X_MULTIPLIER
+                if(encoderTicksToInches(parallelEncoder.rawVelocity) * constants.X_MULTIPLIER < 0) encoderTicksToInches(parallelEncoder.rawVelocity) * constants.X_MULTIPLIER * (drive.constants as MecanumDriveConstants).BACKWARD_DRIFT_MULTIPLIER else encoderTicksToInches(parallelEncoder.rawVelocity) * constants.X_MULTIPLIER,
+                encoderTicksToInches(perpendicularEncoder.rawVelocity) * constants.Y_MULTIPLIER
             )
         }
     }

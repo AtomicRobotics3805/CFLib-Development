@@ -11,14 +11,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.tuning.constants
 
 import com.acmerobotics.dashboard.config.Config
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryConstants
 
-//@Config
-@Suppress("PropertyName")
-object TestingOdometryConstants : TwoWheelOdometryConstants {
+@Config
+@Suppress("PropertyName", "ObjectPropertyName")
+object TuningOdometryConstants : TwoWheelOdometryConstants {
     @JvmField
     var _PARALLEL_X = 0.075 // in; forward offset of the parallel wheel
     @JvmField
@@ -64,9 +64,9 @@ object TestingOdometryConstants : TwoWheelOdometryConstants {
     @JvmField
     var _PERPENDICULAR_REVERSED = true // DO NOT MESS THIS UP!!!!! IT BROKE EVERYTHING!!!
     @JvmField
-    var _X_MULTIPLIER = 1.016949153
+    var _X_MULTIPLIER = 1.0
     @JvmField
-    var _Y_MULTIPLIER = 1.020408163
+    var _Y_MULTIPLIER = 1.0
     @JvmField
     var _CORRECTED_VELOCITY = false
 

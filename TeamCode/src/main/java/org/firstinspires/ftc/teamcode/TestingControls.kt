@@ -16,7 +16,10 @@
 */
 package org.firstinspires.ftc.teamcode
 
+import org.atomicrobotics3805.cflib.CommandScheduler
+import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.controls.Controls
+import org.atomicrobotics3805.cflib.driving.DriverControlled
 
 /**
  * This class manages the controls for TeleOp OpModes. If you want to register a command, type a
@@ -33,7 +36,6 @@ object TestingControls : Controls() {
      * Registers commands on the gamepads.
      */
     override fun registerCommands() {
-        gamepad1.a.pressedCommand = { TestingClaw.moveServo }
-        gamepad1.b.pressedCommand = { TestingLift.spinWheel }
+        CommandScheduler.scheduleCommand(DriverControlled(opMode.gamepad1))
     }
 }

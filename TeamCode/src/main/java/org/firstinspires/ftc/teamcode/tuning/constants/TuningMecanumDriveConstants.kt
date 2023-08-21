@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.tuning.constants
 
 import com.acmerobotics.dashboard.config.Config
 import com.acmerobotics.roadrunner.control.PIDCoefficients
@@ -36,7 +36,7 @@ import org.atomicrobotics3805.cflib.trajectories.toRadians
  */
 @Config
 @Suppress("ObjectPropertyName")
-object TestingMecanumDriveConstants : MecanumDriveConstants {
+object TuningMecanumDriveConstants : MecanumDriveConstants {
 
     // These are motor constants that should be listed online for your motors.
     @JvmField
@@ -58,18 +58,6 @@ object TestingMecanumDriveConstants : MecanumDriveConstants {
     var _IS_RUN_USING_ENCODER = false
 
     /*
-     * If not using the built-in motor velocity PID, then these coefficients need to be tuned. They
-     * control the robot's feedforward movement (its pre-planned motor movements, as opposed to
-     * feedback, which adjusts motor movements mid-trajectory)
-     */
-    @JvmField
-    var _kV = 0.013
-    @JvmField
-    var _kA = 0.0025
-    @JvmField
-    var _kStatic = 0.01
-
-    /*
      * These constants are tied to your robot's hardware. You should be able to find them just by
      * looking at the robot. TRACK_WIDTH may require additional tuning, however.
      */
@@ -79,6 +67,18 @@ object TestingMecanumDriveConstants : MecanumDriveConstants {
     var _GEAR_RATIO = 1.0 // output (wheel) speed / input (motor) speed
     @JvmField
     var _TRACK_WIDTH = 18.0 // in, the distance between center of left and right drive wheels
+
+    /*
+     * If not using the built-in motor velocity PID, then these coefficients need to be tuned. They
+     * control the robot's feedforward movement (its pre-planned motor movements, as opposed to
+     * feedback, which adjusts motor movements mid-trajectory)
+     */
+    @JvmField
+    var _kV = 1.0 / (_MAX_RPM * _GEAR_RATIO * 2 * Math.PI * _WHEEL_RADIUS / 60.0)
+    @JvmField
+    var _kA = 0.0
+    @JvmField
+    var _kStatic = 0.0
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,

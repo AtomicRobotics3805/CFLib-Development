@@ -33,15 +33,7 @@ import org.atomicrobotics3805.cflib.subsystems.Subsystem
 @Suppress("PropertyName", "MemberVisibilityCanBePrivate", "unused")
 object TestingClaw : Subsystem {
 
-    @JvmField
-    var NAME = "lift"
-
-    val moveServo: Command
-        get() = MoveServo(clawServo, 0.5, clawServo.speed)
-
-    private val clawServo = ServoEx(NAME)
-
     override fun initialize() {
-        clawServo.initialize()
+
     }
 }
