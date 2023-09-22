@@ -63,6 +63,39 @@ object MeepMeepVisualizer {
         meepMeep.start()
     }
 
+    // Custom background overload
+    fun run(trajectoryFactory: TrajectoryFactory, windowSize: Int = 600, darkMode: Boolean = true, backgroundAlpha: Float = 0.95f, backgroundPath: String) {
+        val meepMeep = MeepMeep(windowSize)
+
+
+
+        meepMeep.setBackground()
+            .setDarkMode(darkMode)
+            .setBackgroundAlpha(backgroundAlpha)
+        robots.forEach {
+            Constants.drive = it.driver
+            Constants.color = it.color
+            trajectoryFactory.initialize()
+            val constants: DriveConstants = it.driver.constants
+            val botBuilder: DefaultBotBuilder = DefaultBotBuilder(meepMeep)
+                .setDimensions(it.width, it.length)
+                .setConstraints(
+                    constants.MAX_VEL, constants.MAX_ACCEL,
+                    constants.MAX_ANG_VEL, constants.MAX_ANG_ACCEL,
+                    constants.TRACK_WIDTH
+                ).setColorScheme(
+                    if (it.color == Constants.Color.RED) ColorSchemeRedDark()
+                    else ColorSchemeBlueDark()
+                )
+            meepMeep.addEntity(botBuilder.followTrajectorySequence(
+                TrajectorySequence(
+                    routineToSegmentList(it.routine.invoke())
+                )
+            ))
+        }
+        meepMeep.start()
+    }
+
     fun addRobot(robot: MeepMeepRobot) {
         robots.add(robot)
     }
